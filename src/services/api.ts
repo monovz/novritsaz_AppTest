@@ -9,39 +9,44 @@ export interface Contact {
   photo: string
 }
 
+export interface Response<ResponseData> {
+  message: string,
+  data: ResponseData,
+}
+
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://simple-contact-crud.herokuapp.com' }),
   endpoints: (build) => ({
-    addContact: build.mutation<Contact, Partial<Contact>>({
+    addContact: build.mutation<Response<Contact>, Partial<Contact>>({
       query(body) {
         return {
-          url: `/`,
+          url: `/contact`,
           method: 'POST',
           body,
         }
       },
     }),
-    getContact: build.query<Contact, number>({
-      query: (id) => `/${id}`,
+    getContact: build.query<Response<Contact>, string>({
+      query: (id) => `/contact/${id}`,
     }),
-    getAllContact: build.query<Contact[], void>({
-      query: () => `/`,
+    getAllContact: build.query<Response<Contact[]>, void>({
+      query: () => `/contact`,
     }),
-    updateContact: build.mutation<Contact, Partial<Contact>>({
+    updateContact: build.mutation<Response<Contact>, Partial<Contact>>({
       query(data) {
         const { id, ...body } = data
         return {
-          url: `/${id}`,
+          url: `/contact/${id}`,
           method: 'PUT',
           body,
         }
       },
     }),
-    deleteContact: build.mutation<{ success: boolean; id: number }, number>({
+    deleteContact: build.mutation<{ success: boolean; id: number }, string>({
       query(id) {
         return {
-          url: `/${id}`,
+          url: `/contact/${id}`,
           method: 'DELETE',
         }
       },
@@ -49,7 +54,7 @@ export const api = createApi({
   }),
 })
 
-export const { useAddContactMutation, useDeleteContactMutation, useGetContactQuery, useUpdateContactMutation, useGetAllContactQuery } = api
+export const { useAddContactMutation, useDeleteContactMutation, useGetContactQuery, useUpdateContactMutation, useGetAllContactQuery, useLazyGetContactQuery } = api
 
 export const rtkQueryErrorLogger: Middleware =
   (api: MiddlewareAPI) => (next) => (action) => {

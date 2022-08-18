@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { useGetAllContactQuery } from './services/api';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+import ContactsManager from './screens/ContactsManager';
 
 const Main = () => {
-  const { data, isLoading, error } = useGetAllContactQuery()
   return (
     <SafeAreaProvider>
-      <Text>Main</Text>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ContactsManager />
+      </SafeAreaView>
     </SafeAreaProvider>
   )
 }
