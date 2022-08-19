@@ -21,7 +21,12 @@ const ContactsManager = () => {
     return () => {}
   }, [data?.data])
 
-  const { setShowModal, setIdDetail } = useContext(ModalContext)
+  const { setShowModal, setIdDetail, showModal } = useContext(ModalContext)
+
+  useEffect(() => {
+    if (!showModal) refetch()
+    return () => {}
+  }, [showModal])
   
   const onPressContact = (id: string) => {
     setShowModal('detail')
@@ -47,8 +52,8 @@ const ContactsManager = () => {
   }
 
   useEffect(() => {
-    if (search) setContacts((data.data || []).filter(contact => contact.firstName.includes(search) || contact.lastName.includes(search)))
-    else setContacts(data.data || [])
+    if (search) setContacts((data?.data || []).filter(contact => contact.firstName.includes(search) || contact.lastName.includes(search)))
+    else setContacts(data?.data || [])
 
     return () => {}
   }, [search])
@@ -62,7 +67,7 @@ const ContactsManager = () => {
         refreshControl={(
           <RefreshControl
             refreshing={refreshing}
-            onRefresh={() => { refetch() }}
+            onRefresh={refetch}
           ></RefreshControl>
         )}
         ListHeaderComponent={(
