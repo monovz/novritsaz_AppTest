@@ -5,7 +5,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Main from './src';
 import { Provider } from 'react-redux';
 import stores from './src/stores';
-import { useFonts } from 'expo-font';
+import { useFonts } from 'expo-font'
 import globalVar from './src/constants/variable';
 import { ModalProvider } from './src/contexts/ModalContext';
 
