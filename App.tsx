@@ -19,6 +19,8 @@ export default function App() {
     'Montserrat_400': require('./assets/fonts/Montserrat-Regular.ttf'),
   })
 
+  console.log('test')
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
